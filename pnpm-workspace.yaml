@@ -1,0 +1,2 @@
+allowBuilds:
+  unrs-resolver: true  # native resolver for eslint-config-next
