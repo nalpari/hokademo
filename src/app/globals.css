@@ -1,26 +1,541 @@
-@import "tailwindcss";
+/* HOKA Korea mobile storefront.
+   The hero block keeps the approved comp's proportional unit (--u); everything
+   below it and every other screen uses a real responsive scale. */
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ground: #16191c;
+  --header: #16181a;
+  --card: #25292d;
+  --card-hi: #333840;
+  --line: #2a2d30;
+  /* Control edges and the light plate an image sits on: named in DESIGN.md,
+     so they belong in the ramp rather than repeated as literals. */
+  --stroke: #3a3d40;
+  --stroke-soft: #2f3236;
+  --plate: #eceef0;
+  --press: #23262a;
+  --rule: #26292c;
+  --ink: #f4f5f5;
+  --ink-dim: #9a9c9d;
+  --ink-mute: #8c8f92;
+  /* Body copy on a card: brighter than metadata, quieter than a heading. */
+  --ink-body: #cfd1d3;
+  /* A disabled control still has to be readable — a sold-out size is
+     information, not decoration. 3.54:1 reads as disabled and stays legible. */
+  --ink-off: #7a7d81;
+  /* Pure white is the only value that holds AA on --coral-surface (4.54:1);
+     the off-white --ink drops it to 4.16:1. Deliberate, and coral-only. */
+  --on-coral: #ffffff;
+  --coral: #f8583b;
+  /* The brand coral holds AA in neither text role, so it splits by job.
+     --coral       fills and marks (underline, focus ring, wish, selection)
+     --coral-surface  coral as a background carrying white text   4.54:1
+     --coral-ink   coral as text on the dark grounds   5.73 on card, 4.61 on the
+                   tile gradient's lightest stop, 6.90 on the page ground */
+  --coral-surface: #ce4931;
+  --coral-ink: #ff7b53;
+  --coral-press: #b53e29;
+  --cyan: #00c2c7;
+
+  --kr: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+    system-ui, sans-serif;
+  --display: var(--font-anton), "Pretendard Variable", sans-serif;
+
+  --gutter: clamp(14px, 4vw, 22px);
+  --radius: 14px;
+  --radius-lg: 18px;
+
+  --fs-display: clamp(26px, 7.4vw, 34px);
+  --fs-h2: clamp(20px, 5.6vw, 26px);
+  --fs-h3: clamp(13px, 3.7vw, 16px);
+  --fs-price: clamp(15px, 4.3vw, 19px);
+  --fs-sm: clamp(12px, 3.3vw, 14px);
+  --fs-xs: clamp(11px, 3vw, 12px);
+
+  --dock-h: 62px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  -webkit-text-size-adjust: 100%;
+  scrollbar-color: var(--stroke) var(--ground);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--kr);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--coral);
+  color: var(--on-coral);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+:focus-visible {
+  outline: 2px solid var(--coral);
+  outline-offset: 2px;
+}
+
+/* Every touch target clears 44px even when its ink is smaller. */
+.tap {
+  min-width: 44px;
+  min-height: 44px;
+  display: grid;
+  place-items: center;
+}
+
+.shell {
+  min-height: 100dvh;
+  padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom) + 12px);
+}
+
+/* ---------- chrome ---------- */
+
+.masthead {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--header);
+}
+
+.masthead-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px var(--gutter);
+}
+
+.masthead-bar .wordmark {
+  width: clamp(78px, 22vw, 104px);
+  height: auto;
+}
+
+.utils {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.utils svg {
+  width: 21px;
+  height: 21px;
+}
+
+.badge {
+  position: relative;
+}
+
+.badge span {
+  position: absolute;
+  top: 6px;
+  right: 4px;
+  min-width: 15px;
+  height: 15px;
+  padding: 0 4px;
+  border-radius: 99px;
+  background: var(--coral);
+  color: var(--on-coral);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 15px;
+  text-align: center;
+}
+
+.tabs {
+  display: flex;
+  gap: clamp(16px, 5.4vw, 26px);
+  padding: 0 var(--gutter);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.tabs a {
+  position: relative;
+  flex: none;
+  padding: 13px 0 15px;
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  color: var(--ink-dim);
+  white-space: nowrap;
+}
+
+.tabs a[aria-current] {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.tabs a[aria-current]::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 2px;
+  background: var(--coral);
+}
+
+.dock {
+  position: fixed;
+  inset: auto 0 0;
+  z-index: 30;
+  transform: translateY(100%);
+  visibility: hidden;
+  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.32s;
+  height: calc(var(--dock-h) + env(safe-area-inset-bottom));
+  padding-bottom: env(safe-area-inset-bottom);
+  background: rgba(18, 20, 22, 0.94);
+  backdrop-filter: blur(14px);
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  align-items: center;
+}
+
+.dock a {
+  display: grid;
+  justify-items: center;
+  gap: 3px;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--ink-mute);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dock.is-up {
+  transform: none;
+  visibility: visible;
+}
+
+.dock a[aria-current] {
+  color: var(--ink);
+}
+
+.dock a:active {
+  transform: scale(0.94);
+}
+
+.dock svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* ---------- section rhythm ---------- */
+
+section {
+  padding-top: clamp(30px, 8vw, 44px);
+}
+
+.head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 var(--gutter) clamp(13px, 3.6vw, 18px);
+}
+
+.head h2 {
+  font-size: var(--fs-h2);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+}
+
+.head a {
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: var(--ink-dim);
+  letter-spacing: -0.03em;
+}
+
+/* ---------- catalogue tiles ----------
+   The home shows products as dark cut-outs (editorial); catalogue surfaces show
+   them on their own light ground (the product photography as the store ships it).
+   Two deliberate roles, not two accidents. */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(9px, 2.6vw, 14px);
+  padding: 0 var(--gutter);
+}
+
+.card {
+  position: relative;
+  display: block;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--card);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card:active {
+  transform: scale(0.985);
+}
+
+.card .shot {
+  display: block;
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background: var(--plate);
+}
+
+.card .shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card .meta {
+  display: block;
+  padding: 10px 11px 13px;
+}
+
+.card h3 {
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.045em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.price {
+  margin-top: 7px;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  flex-wrap: wrap;
+  font-size: var(--fs-price);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.price .off {
+  color: var(--coral-ink);
+}
+
+.price .was {
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  color: var(--ink-mute);
+  text-decoration: line-through;
+}
+
+.stars {
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--fs-xs);
+  color: var(--ink-dim);
+  letter-spacing: -0.02em;
+}
+
+.stars b {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.soldout {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(14, 16, 18, 0.62);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+
+.wish {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  z-index: 2;
+  min-width: 34px;
+  min-height: 34px;
+  border-radius: 99px;
+  background: rgba(20, 22, 24, 0.5);
+  backdrop-filter: blur(6px);
+  color: var(--on-coral);
+}
+
+.wish svg {
+  width: 18px;
+  height: 18px;
+}
+
+.wish[aria-pressed="true"] svg {
+  fill: var(--coral);
+  stroke: var(--coral);
+}
+
+/* ---------- generic states ---------- */
+
+.empty {
+  padding: clamp(50px, 16vw, 90px) var(--gutter);
+  text-align: center;
+  color: var(--ink-dim);
+}
+
+.empty strong {
+  display: block;
+  margin-bottom: 8px;
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.04em;
+}
+
+.empty p {
+  font-size: var(--fs-sm);
+  line-height: 1.6;
+  letter-spacing: -0.03em;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 50px;
+  border-radius: var(--radius-lg);
+  background: var(--coral);
+  color: var(--on-coral);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.18s;
+}
+
+.btn:active {
+  transform: scale(0.985);
+  background: var(--coral-press);
+}
+
+/* A disabled primary still has to say why it is disabled — "사이즈를 선택하세요",
+   "품절". It reads disabled by sinking below the surface, not by fading its
+   label out of legibility: --ink-mute on --press is 4.67:1. */
+.btn[disabled] {
+  background: var(--press);
+  color: var(--ink-mute);
+  cursor: not-allowed;
+}
+
+.btn-ghost {
+  background: none;
+  border: 1px solid var(--stroke);
+  color: var(--ink);
+}
+
+.btn-ghost:active {
+  background: var(--press);
+}
+
+
+.masthead-title {
+  flex: 1;
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  text-align: center;
+}
+
+.count {
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: var(--ink-dim);
+  letter-spacing: -0.03em;
+}
+
+.chips {
+  display: flex;
+  gap: 6px;
+  padding: 0 var(--gutter) 14px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.chips::-webkit-scrollbar {
+  display: none;
+}
+
+.chips a {
+  flex: none;
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 13px;
+  border-radius: 99px;
+  border: 1px solid var(--stroke);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--ink-dim);
+  white-space: nowrap;
+}
+
+.chips a[aria-current] {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+footer {
+  margin-top: clamp(44px, 12vw, 70px);
+  padding: clamp(22px, 6vw, 30px) var(--gutter) clamp(26px, 7vw, 36px);
+  border-top: 1px solid var(--rule);
+  color: var(--ink-dim);
+}
+
+footer .brand {
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.04em;
+}
+
+footer p {
+  margin-top: 8px;
+  font-size: var(--fs-xs);
+  line-height: 1.65;
+  letter-spacing: -0.03em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

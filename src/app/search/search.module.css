@@ -1,0 +1,104 @@
+.page {
+  padding: 14px 0 20px;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0 var(--gutter);
+  padding: 0 12px;
+  height: 46px;
+  border-radius: 12px;
+  background: var(--card);
+  border: 1px solid var(--stroke-soft);
+}
+
+.field:focus-within {
+  border-color: var(--coral);
+}
+
+.field svg {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  color: var(--ink-dim);
+}
+
+.field input {
+  flex: 1;
+  min-width: 0;
+  background: none;
+  border: 0;
+  outline: none;
+  color: var(--ink);
+  font: inherit;
+  font-size: var(--fs-h3);
+  letter-spacing: -0.03em;
+}
+
+.field input::placeholder {
+  color: #8b8e91;
+}
+
+.field input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.field button {
+  flex: none;
+  color: var(--ink-dim);
+}
+
+.field button svg {
+  width: 15px;
+  height: 15px;
+}
+
+.suggest {
+  padding: 24px var(--gutter) 0;
+}
+
+.suggest h2 {
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+
+.chips {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.chips button {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  min-height: 38px;
+  padding: 8px 13px;
+  border-radius: 99px;
+  border: 1px solid var(--stroke);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.chips button:active {
+  background: var(--press);
+}
+
+.chips em {
+  font-style: normal;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--ink-dim);
+}
+
+.count {
+  padding: 18px var(--gutter) 12px;
+  font-size: var(--fs-sm);
+  color: var(--ink-dim);
+  letter-spacing: -0.03em;
+}

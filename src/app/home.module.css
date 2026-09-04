@@ -1,0 +1,460 @@
+/* The hero is the one block that keeps the approved comp's measured geometry.
+   --u is the comp unit: 1024 comp px == the viewport width. Every number below
+   was measured off .impeccable/mocks/home-approved.png. */
+
+.hero {
+  --u: calc(100vw / 1024);
+  position: relative;
+  width: 100%;
+  height: calc(1909 * var(--u));
+  background: var(--ground);
+  overflow: hidden;
+}
+
+.at {
+  position: absolute;
+}
+
+.photo {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: calc(860 * var(--u));
+  overflow: hidden;
+}
+
+.photo img {
+  position: absolute;
+  left: calc(-125 * var(--u));
+  top: calc(-165 * var(--u));
+  width: calc(1385 * var(--u));
+  height: auto;
+  max-width: none;
+}
+
+.photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(22, 25, 28, 0) 50%,
+    rgba(22, 25, 28, 0.78) 85%,
+    var(--ground) 100%
+  );
+}
+
+.headline {
+  left: calc(45 * var(--u));
+  top: calc(862 * var(--u));
+  width: calc(940 * var(--u));
+  font-family: var(--display);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: calc(161 * var(--u));
+  line-height: calc(155 * var(--u));
+  letter-spacing: -0.035em;
+  color: #f7f7f8;
+}
+
+.headline span {
+  display: block;
+}
+
+.subline {
+  left: calc(46 * var(--u));
+  top: calc(1186 * var(--u));
+  font-size: calc(66 * var(--u));
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  color: var(--ink-dim);
+}
+
+.cta {
+  left: calc(43 * var(--u));
+  top: calc(1304 * var(--u));
+  width: calc(333 * var(--u));
+  height: calc(99 * var(--u));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-radius: calc(30 * var(--u));
+  background: var(--coral-surface);
+  color: var(--on-coral);
+  font-size: calc(47 * var(--u));
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.18s;
+}
+
+.cta::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: max(44px, 100%);
+}
+
+.cta:active {
+  transform: scale(0.975);
+  background: var(--coral-press);
+}
+
+/* The comp shows a rail here, not one card: the first card sits at 30u, the
+   gutter is 24u, and the next card breaks the right edge at 1004u. */
+.rankRail {
+  left: 0;
+  top: calc(1595 * var(--u));
+  width: 100%;
+  display: flex;
+  gap: calc(24 * var(--u));
+  padding: 0 calc(30 * var(--u));
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline-start: calc(30 * var(--u));
+  scrollbar-width: none;
+}
+
+.rankRail::-webkit-scrollbar {
+  display: none;
+}
+
+.rankCard {
+  position: relative;
+  flex: 0 0 calc(950 * var(--u));
+  height: calc(314 * var(--u));
+  scroll-snap-align: start;
+  background: var(--card);
+  border-radius: calc(32 * var(--u));
+  box-shadow: 0 calc(-2 * var(--u)) 0 rgba(255, 255, 255, 0.06) inset;
+}
+
+.rankShoe {
+  position: absolute;
+  left: calc(46 * var(--u));
+  top: calc(93 * var(--u));
+  width: calc(356 * var(--u));
+  height: calc(172 * var(--u));
+}
+
+.rankShoe img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 calc(10 * var(--u)) calc(14 * var(--u)) rgba(0, 0, 0, 0.5));
+}
+
+.rankName {
+  position: absolute;
+  display: block;
+  left: calc(457 * var(--u));
+  top: calc(98 * var(--u));
+  width: calc(420 * var(--u));
+  font-size: calc(48 * var(--u));
+  font-weight: 700;
+  line-height: calc(48 * var(--u));
+  letter-spacing: -0.05em;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.rankPrice {
+  position: absolute;
+  display: block;
+  left: calc(454 * var(--u));
+  top: calc(179 * var(--u));
+  width: calc(420 * var(--u));
+  font-size: calc(41 * var(--u));
+  font-weight: 700;
+  line-height: calc(41 * var(--u));
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+}
+
+.rankPrice s {
+  color: var(--ink-mute);
+  font-weight: 500;
+  margin-right: calc(14 * var(--u));
+}
+
+.rankPrice em {
+  color: var(--coral-ink);
+  font-style: normal;
+}
+
+/* ---- the editorial product tiles: cut-outs on the dark ground ---- */
+
+.podium {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(9px, 2.6vw, 14px);
+  padding: 0 var(--gutter);
+}
+
+.lead {
+  grid-column: 1 / -1;
+}
+
+.tile {
+  position: relative;
+  display: block;
+  background: var(--card);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tile:active {
+  transform: scale(0.985);
+}
+
+.tile .shot {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1 / 1;
+  background: radial-gradient(120% 90% at 50% 26%, var(--card-hi) 0%, var(--card) 62%);
+}
+
+.tile .shot img {
+  width: 86%;
+  height: auto;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.55));
+}
+
+.lead .shot {
+  aspect-ratio: 16 / 10;
+}
+
+.lead .shot img {
+  width: 62%;
+}
+
+.rank {
+  position: absolute;
+  left: 10px;
+  top: 8px;
+  z-index: 2;
+  font-family: var(--display);
+  font-size: clamp(19px, 5.4vw, 26px);
+  line-height: 0.82;
+  color: var(--cyan);
+  letter-spacing: -0.02em;
+}
+
+.rank sup {
+  font-family: var(--kr);
+  font-size: 0.36em;
+  font-weight: 700;
+  vertical-align: super;
+  margin-left: 1px;
+}
+
+.body {
+  padding: 10px 11px 13px;
+}
+
+.stars {
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--fs-xs);
+  color: var(--ink-dim);
+  letter-spacing: -0.02em;
+}
+
+.stars b {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.body h3 {
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  line-height: 1.32;
+  letter-spacing: -0.045em;
+}
+
+.rail {
+  display: flex;
+  gap: clamp(9px, 2.6vw, 14px);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline-start: var(--gutter);
+  padding: 0 var(--gutter) 4px;
+  scrollbar-width: none;
+}
+
+.rail::-webkit-scrollbar {
+  display: none;
+}
+
+.rail .tile {
+  flex: 0 0 clamp(150px, 44vw, 220px);
+  scroll-snap-align: start;
+}
+
+/* ---- campaign band ---- */
+
+.campaign {
+  margin: clamp(34px, 9vw, 52px) 0 0;
+  padding: clamp(24px, 6.4vw, 34px) var(--gutter) 0;
+  background: var(--coral-surface);
+  overflow: hidden;
+  color: var(--on-coral);
+}
+
+.campaign h2 {
+  font-family: var(--display);
+  font-size: var(--fs-display);
+  line-height: 0.94;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+.campaign .ko {
+  margin-top: 9px;
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  color: var(--on-coral);
+}
+
+.campaign dl {
+  margin-top: 16px;
+  display: grid;
+  gap: 7px;
+}
+
+.campaign dl > div {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  border-top: 1px solid color-mix(in srgb, var(--on-coral) 42%, transparent);
+  padding-top: 7px;
+}
+
+.campaign dt {
+  flex: 0 0 clamp(58px, 17vw, 82px);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  color: var(--on-coral);
+  letter-spacing: -0.03em;
+}
+
+.campaign dd {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+
+.campaign img {
+  width: 88%;
+  height: auto;
+  margin: 10px auto -10px;
+}
+
+/* ---- team results ---- */
+
+.results {
+  padding: 0 var(--gutter);
+}
+
+.results ol {
+  list-style: none;
+}
+
+.results li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 3px 12px;
+  padding: 13px 0;
+  border-top: 1px solid var(--line);
+}
+
+.results li:first-child {
+  border-top: 0;
+}
+
+.who {
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+
+.clock {
+  font-size: var(--fs-price);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--cyan);
+  font-variant-numeric: tabular-nums;
+}
+
+.race {
+  grid-column: 1;
+  font-size: var(--fs-xs);
+  color: var(--ink-dim);
+  letter-spacing: -0.03em;
+}
+
+.place {
+  grid-column: 2;
+  font-size: var(--fs-xs);
+  color: var(--ink-dim);
+  letter-spacing: -0.03em;
+  text-align: right;
+}
+
+/* ---- one orchestrated arrival ---- */
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(calc(34 * var(--u)));
+    }
+  }
+
+  @keyframes settle {
+    from {
+      transform: scale(1.05);
+    }
+  }
+
+  .photo img {
+    animation: settle 1.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .headline span,
+  .subline,
+  .cta,
+  .rankCard,
+  .rankShoe,
+  .rankName,
+  .rankPrice {
+    animation: rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .headline span:nth-child(1) {
+    animation-delay: 0.08s;
+  }
+  .headline span:nth-child(2) {
+    animation-delay: 0.17s;
+  }
+  .subline {
+    animation-delay: 0.29s;
+  }
+  .cta {
+    animation-delay: 0.38s;
+  }
+  .rankCard,
+  .rankShoe,
+  .rankName,
+  .rankPrice {
+    animation-delay: 0.48s;
+  }
+}
