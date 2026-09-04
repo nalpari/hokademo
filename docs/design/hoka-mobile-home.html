@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>HOKA 모바일 홈 시안</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css" rel="stylesheet">
+<style>
+  :root {
+    --u: calc(100vw / 1024);
+
+    --ground: #16191c;
+    --header: #16181a;
+    --card: #25292d;
+    --ink: #f4f5f5;
+    --ink-dim: #9a9c9d;
+    --ink-mute: #8c8f92;
+    --coral: #f8583b;
+    --coral-surface: #ce4931;
+    --coral-ink: #ff7b53;
+    --cyan: #00c2c7;
+    --coral-press: #b53e29;
+    --stroke: #3a3d40;
+    --plate: #eceef0;
+    --rule: #26292c;
+    --on-coral: #ffffff;
+
+    --kr: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    --display: 'Anton', 'Pretendard Variable', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { background: var(--ground); font-family: var(--kr); color: var(--ink); }
+
+  ::selection { background: var(--coral); color: var(--on-coral); }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+  :focus-visible { outline: max(2px, calc(3 * var(--u))) solid var(--coral); outline-offset: 2px; }
+
+  /* every hero element is placed at the box measured off the approved comp */
+  .hero-frame { position: relative; width: 100vw; height: calc(2206 * var(--u)); background: var(--ground); overflow: hidden; }
+  .at { position: absolute; }
+
+  .masthead   { left: 0; top: 0; width: calc(1024 * var(--u)); height: calc(297 * var(--u)); background: var(--header); }
+
+  .wordmark   { left: calc(43 * var(--u)); top: calc(63 * var(--u)); width: calc(235 * var(--u)); }
+  .wordmark img { width: 100%; display: block; }
+
+  .utils      { left: calc(689 * var(--u)); top: calc(67 * var(--u)); width: calc(287 * var(--u)); height: calc(58 * var(--u));
+                display: flex; justify-content: space-between; align-items: center; }
+  .utils svg  { width: calc(58 * var(--u)); height: calc(58 * var(--u)); display: block; }
+
+  .tabs       { left: calc(46 * var(--u)); top: calc(216 * var(--u)); display: flex; gap: calc(82 * var(--u)); }
+  .tabs a     { position: relative; font-size: calc(48 * var(--u)); font-weight: 600; line-height: 1;
+                padding: calc(34 * var(--u)) 0 calc(38 * var(--u)); margin: calc(-34 * var(--u)) 0 calc(-38 * var(--u));
+                letter-spacing: -0.035em; color: var(--ink-dim); }
+  .tabs a[aria-current] { color: var(--ink); font-weight: 700; }
+  .tabs a[aria-current]::after { content: ""; position: absolute; left: 0; right: 0; top: calc(78 * var(--u));
+                height: calc(8 * var(--u)); background: var(--coral); }
+
+  .hero-photo { left: 0; top: calc(297 * var(--u)); width: calc(1024 * var(--u)); height: calc(860 * var(--u)); overflow: hidden; }
+  .hero-photo img { position: absolute; left: calc(-125 * var(--u)); top: calc(-165 * var(--u)); width: calc(1385 * var(--u)); height: auto; display: block; }
+  .hero-photo::after { content: ""; position: absolute; inset: 0;
+                background: linear-gradient(to bottom, rgba(22,25,28,0) 50%, rgba(22,25,28,.78) 85%, var(--ground) 100%); }
+
+  .headline span { display: block; }
+  .headline   { left: calc(45 * var(--u)); top: calc(1159 * var(--u)); width: calc(940 * var(--u));
+                font-family: var(--display); font-weight: 400; text-transform: uppercase;
+                font-size: calc(161 * var(--u)); line-height: calc(155 * var(--u));
+                letter-spacing: -0.035em; color: #f7f7f8; }
+
+  .subline    { left: calc(46 * var(--u)); top: calc(1483 * var(--u));
+                font-size: calc(66 * var(--u)); font-weight: 500; line-height: 1;
+                letter-spacing: -0.035em; color: var(--ink-dim); }
+
+  .hero-cta   { left: calc(43 * var(--u)); top: calc(1601 * var(--u));
+                width: calc(333 * var(--u)); height: calc(99 * var(--u));
+                display: flex; align-items: center; justify-content: center;
+                border-radius: calc(30 * var(--u)); background: var(--coral-surface); color: var(--on-coral);
+                font-size: calc(47 * var(--u)); font-weight: 700; letter-spacing: -0.03em;
+                transition: transform .18s cubic-bezier(.16,1,.3,1), background-color .18s ease; }
+  .hero-cta:active { transform: scale(.975); background: var(--coral-press); }
+
+  .rank-rail  { left: 0; top: calc(1892 * var(--u)); width: 100%; display: flex;
+                gap: calc(24 * var(--u)); padding: 0 calc(30 * var(--u));
+                overflow-x: auto; scroll-snap-type: x mandatory;
+                scroll-padding-inline-start: calc(30 * var(--u)); scrollbar-width: none; }
+  .rank-rail::-webkit-scrollbar { display: none; }
+  .rank-card  { position: relative; flex: 0 0 calc(950 * var(--u));
+                scroll-snap-align: start; height: calc(314 * var(--u));
+                background: var(--card); border-radius: calc(32 * var(--u));
+                box-shadow: 0 calc(-2 * var(--u)) 0 rgba(255,255,255,.06) inset; }
+  .rank-shoe  { position: absolute; left: calc(46 * var(--u)); top: calc(93 * var(--u));
+                width: calc(356 * var(--u)); height: calc(172 * var(--u)); }
+  .rank-shoe img { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+  .rank-name  { position: absolute; display: block; left: calc(457 * var(--u)); top: calc(98 * var(--u)); width: calc(420 * var(--u));
+                font-size: calc(48 * var(--u)); font-weight: 700; line-height: calc(48 * var(--u));
+                letter-spacing: -0.05em; color: var(--ink); white-space: nowrap; }
+  .rank-price { position: absolute; display: block; left: calc(454 * var(--u)); top: calc(176 * var(--u)); width: calc(420 * var(--u));
+                font-size: calc(41 * var(--u)); font-weight: 700; line-height: calc(41 * var(--u));
+                letter-spacing: -0.04em; white-space: nowrap; }
+  .rank-price s  { color: var(--ink-dim); font-weight: 500; margin-right: calc(14 * var(--u));
+                   text-decoration-thickness: calc(3 * var(--u)); }
+  .rank-price em { color: var(--coral-ink); font-style: normal; }
+
+  /* ---- shared section rhythm ------------------------------------------ */
+  main { display: block; background: var(--ground); padding-bottom: calc(190 * var(--u)); }
+  section { padding: calc(120 * var(--u)) 0 0; }
+  .head { display: flex; align-items: baseline; justify-content: space-between;
+          padding: 0 calc(40 * var(--u)) calc(46 * var(--u)); }
+  .head h2 { font-size: calc(64 * var(--u)); font-weight: 800; letter-spacing: -0.05em; }
+  .head a  { font-size: calc(40 * var(--u)); font-weight: 500; color: var(--ink-dim); letter-spacing: -0.03em; }
+
+  /* ---- best three: one tall lead, two beneath -------------------------- */
+  .podium { display: grid; grid-template-columns: 1fr 1fr; gap: calc(20 * var(--u));
+            padding: 0 calc(40 * var(--u)); }
+  .podium .lead { grid-column: 1 / -1; }
+  .tile { position: relative; background: var(--card); border-radius: calc(32 * var(--u));
+          overflow: hidden; display: block; }
+  .tile .shot { display: flex; align-items: center; justify-content: center;
+                width: 100%; aspect-ratio: 1 / 1;
+                background: radial-gradient(120% 90% at 50% 26%, #333840 0%, #25292d 62%); }
+  .tile .shot img { width: 86%; display: block;
+                    filter: drop-shadow(0 calc(16 * var(--u)) calc(22 * var(--u)) rgba(0,0,0,.55)); }
+  .lead .shot { aspect-ratio: 16 / 10; }
+  .lead .shot img { width: 62%; }
+  .rank { position: absolute; left: calc(26 * var(--u)); top: calc(24 * var(--u)); z-index: 2;
+          font-family: var(--display); font-size: calc(72 * var(--u)); line-height: .82;
+          color: var(--cyan); letter-spacing: -0.02em; }
+  .rank sup { font-family: var(--kr); font-size: calc(26 * var(--u)); font-weight: 700;
+              vertical-align: super; margin-left: calc(4 * var(--u)); }
+  .tile .body { padding: calc(28 * var(--u)) calc(30 * var(--u)) calc(34 * var(--u)); }
+  .tile h3 { font-size: calc(38 * var(--u)); font-weight: 600; letter-spacing: -0.045em;
+             line-height: 1.32; color: var(--ink); }
+  .tile .price { margin-top: calc(18 * var(--u)); display: flex; align-items: baseline;
+                 gap: calc(14 * var(--u)); flex-wrap: wrap;
+                 font-size: calc(42 * var(--u)); font-weight: 800; letter-spacing: -0.04em; }
+  .tile .off { color: var(--coral-ink); }
+  .tile .was { font-size: calc(32 * var(--u)); font-weight: 500; color: var(--ink-mute);
+               text-decoration: line-through; text-decoration-thickness: calc(2 * var(--u)); }
+  .tile .stars { margin-top: calc(12 * var(--u)); display: flex; align-items: center; gap: calc(8 * var(--u));
+                 font-size: calc(30 * var(--u)); color: var(--ink-dim); letter-spacing: -0.02em; }
+  .tile .stars b { color: var(--ink); font-weight: 700; }
+  .tile .stars::before { content: "\2605"; color: var(--coral-ink); font-size: calc(26 * var(--u)); }
+  .lead h3 { font-size: calc(46 * var(--u)); }
+  .lead .price { font-size: calc(52 * var(--u)); }
+
+  /* ---- the rest of the board: one flick row --------------------------- */
+  .rail { display: flex; gap: calc(20 * var(--u)); overflow-x: auto; scroll-snap-type: x mandatory;
+          padding: 0 calc(40 * var(--u)) calc(16 * var(--u)); scrollbar-width: none;
+          scroll-padding-inline-start: calc(40 * var(--u)); }
+  .rail::-webkit-scrollbar { display: none; }
+  .rail .tile { flex: 0 0 calc(462 * var(--u)); scroll-snap-align: start; }
+
+  /* ---- campaign band -------------------------------------------------- */
+  a.campaign { display: block; }
+  .campaign { margin: calc(130 * var(--u)) 0 0; padding: calc(64 * var(--u)) calc(40 * var(--u)) 0;
+              background: var(--coral-surface); overflow: hidden; color: var(--on-coral); }
+  .campaign h2 { font-family: var(--display); font-size: calc(96 * var(--u)); line-height: .94;
+                 text-transform: uppercase; letter-spacing: -0.02em; }
+  .campaign .ko { margin-top: calc(26 * var(--u)); font-size: calc(44 * var(--u)); font-weight: 600;
+                  letter-spacing: -0.04em; color: var(--on-coral); }
+  .campaign dl { margin-top: calc(44 * var(--u)); display: grid; gap: calc(20 * var(--u)); }
+  .campaign div { display: flex; gap: calc(20 * var(--u)); align-items: baseline;
+                  border-top: calc(2 * var(--u)) solid color-mix(in srgb, var(--on-coral) 42%, transparent); padding-top: calc(18 * var(--u)); }
+  .campaign dt { flex: 0 0 calc(210 * var(--u)); font-size: calc(34 * var(--u)); font-weight: 500;
+                 color: var(--on-coral); letter-spacing: -0.03em; }
+  .campaign dd { font-size: calc(38 * var(--u)); font-weight: 700; letter-spacing: -0.04em; }
+  .campaign img { display: block; width: 88%; margin: calc(30 * var(--u)) auto calc(-30 * var(--u)); }
+
+  /* ---- team results: data, not cards ---------------------------------- */
+  .results { padding: 0 calc(40 * var(--u)); }
+  .results ol { list-style: none; }
+  .results li { display: grid; grid-template-columns: 1fr auto; gap: calc(8 * var(--u)) calc(24 * var(--u));
+                padding: calc(34 * var(--u)) 0; border-top: calc(2 * var(--u)) solid #2a2d30; }
+  .results li:first-child { border-top: 0; }
+  .who   { font-size: calc(44 * var(--u)); font-weight: 700; letter-spacing: -0.04em; }
+  .clock { font-size: calc(48 * var(--u)); font-weight: 700; letter-spacing: -0.02em;
+           color: #00c2c7; font-variant-numeric: tabular-nums; }
+  .race  { grid-column: 1; font-size: calc(34 * var(--u)); color: var(--ink-dim); letter-spacing: -0.03em; }
+  .place { grid-column: 2; font-size: calc(32 * var(--u)); color: var(--ink-dim); letter-spacing: -0.03em; text-align: right; }
+
+  /* ---- footer + bottom bar -------------------------------------------- */
+  footer { margin-top: calc(140 * var(--u)); padding: calc(64 * var(--u)) calc(40 * var(--u)) calc(60 * var(--u));
+           border-top: calc(2 * var(--u)) solid var(--rule); color: var(--ink-dim); }
+  footer .brand { font-size: calc(40 * var(--u)); font-weight: 700; color: var(--ink); letter-spacing: -0.04em; }
+  footer p { margin-top: calc(20 * var(--u)); font-size: calc(32 * var(--u)); line-height: 1.6; letter-spacing: -0.03em; }
+
+  /* the approved first viewport ends on the rank card breaking the edge, so the
+     dock stays out of it and arrives once the hero has been scrolled past */
+  .dock { position: fixed; left: 0; right: 0; bottom: 0; z-index: 5;
+          transform: translateY(100%); visibility: hidden;
+          transition: transform .32s cubic-bezier(.16,1,.3,1), visibility .32s;
+          height: calc(160 * var(--u)); background: rgba(18,20,22,.94);
+          backdrop-filter: blur(calc(24 * var(--u)));
+          border-top: calc(2 * var(--u)) solid var(--rule);
+          display: grid; grid-template-columns: repeat(5, 1fr); align-items: center; }
+  .dock a { display: grid; justify-items: center; gap: calc(10 * var(--u));
+            font-size: calc(28 * var(--u)); font-weight: 600; color: #7d8085; letter-spacing: -0.03em; }
+  .dock.is-up { transform: none; visibility: visible; }
+  .dock a[aria-current] { color: var(--ink); }
+  .dock svg { width: calc(46 * var(--u)); height: calc(46 * var(--u)); }
+
+
+  /* ---- one orchestrated arrival, then only feedback -------------------- */
+  .tile, .dock a { transition: transform .2s cubic-bezier(.16,1,.3,1); }
+  .tile:active { transform: scale(.985); }
+  .dock a:active { transform: scale(.94); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    @keyframes rise { from { opacity: 0; transform: translateY(calc(34 * var(--u))); } }
+    @keyframes settle { from { transform: scale(1.05); } }
+
+    .hero-photo img { animation: settle 1.4s cubic-bezier(.16,1,.3,1) both; }
+    .headline span, .subline, .hero-cta, .rank-rail, .rank-shoe, .rank-name, .rank-price {
+      animation: rise .9s cubic-bezier(.16,1,.3,1) both;
+    }
+    .headline span:nth-child(1) { animation-delay: .08s; }
+    .headline span:nth-child(2) { animation-delay: .17s; }
+    .subline  { animation-delay: .29s; }
+    .hero-cta { animation-delay: .38s; }
+    .rank-rail, .rank-shoe, .rank-name, .rank-price { animation-delay: .48s; }
+  }
+
+  /* ---- viewports ------------------------------------------------------- */
+  .page { position: relative; width: 100%; }
+  .hero-frame, main { width: 100%; }
+
+  /* the composition is proportional at every width: one phone screen, scaled.
+     Nothing is measured in fixed px, so the first viewport holds from 320 up. */
+</style>
+</head>
+<body>
+
+<div class="page">
+<div class="hero-frame">
+
+  <div class="at masthead"></div>
+
+  <a class="at wordmark" href="#"><img src="assets/plates/wordmark.png" alt="HOKA"></a>
+
+  <div class="at utils">
+    <button aria-label="검색">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#f4f5f5" stroke-width="1.7" stroke-linecap="round">
+        <circle cx="10.6" cy="10.6" r="6.9"/><path d="M15.6 15.6 21 21"/>
+      </svg>
+    </button>
+    <button aria-label="찜하기">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#f4f5f5" stroke-width="1.7" stroke-linejoin="round">
+        <path d="M12 20.4 4.3 12.7a4.7 4.7 0 0 1 0-6.6 4.7 4.7 0 0 1 6.6 0l1.1 1.1 1.1-1.1a4.7 4.7 0 0 1 6.6 0 4.7 4.7 0 0 1 0 6.6Z"/>
+      </svg>
+    </button>
+    <button aria-label="장바구니">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#f4f5f5" stroke-width="1.7" stroke-linejoin="round">
+        <path d="M4.5 7.7h15l-1.2 12.6H5.7Z"/><path d="M8.6 9.5V6.2a3.4 3.4 0 0 1 6.8 0v3.3"/>
+      </svg>
+    </button>
+  </div>
+
+  <nav class="at tabs">
+    <a href="#" aria-current="page">남성</a>
+    <a href="#">여성</a>
+    <a href="#">키즈</a>
+    <a href="#">트레일</a>
+  </nav>
+
+  <div class="at hero-photo">
+    <img src="assets/plates/hero-photo.png" alt="새벽 능선을 달리는 트레일 러너">
+  </div>
+
+  <h1 class="at headline"><span>Together we</span><span>fly higher</span></h1>
+  <p class="at subline">함께일 때, 더 높이</p>
+  <a class="at hero-cta" href="#">캠페인 보기</a>
+
+  <div class="at rank-rail">
+    <a class="rank-card" href="#">
+    <span class="rank-shoe"><img src="assets/plates/product-shoe.png" alt=""></span>
+    <span class="rank-name">호카 남성 스피드고트 6</span>
+    <span class="rank-price"><s>205,000원</s><em>143,500원</em></span>
+    </a>
+    <a class="rank-card" href="#">
+      <span class="rank-shoe"><img src="assets/products/speedgoat6-wide.png" alt=""></span>
+      <span class="rank-name">호카 남성 스피드고트 6 와이드</span>
+      <span class="rank-price"><s>205,000원</s><em>143,500원</em></span>
+    </a>
+  </div>
+
+</div>
+
+<main>
+
+  <section aria-labelledby="best-h">
+    <div class="head">
+      <h2 id="best-h">베스트</h2>
+      <a href="#">전체보기</a>
+    </div>
+
+    <div class="podium">
+      <a class="tile lead" href="#">
+        <span class="rank">1<sup>위</sup></span>
+        <div class="shot"><img src="assets/products/mach6-dhn.png" alt="호카 남성 마하 6 와이드 1147833-DHN"></div>
+        <div class="body">
+          <h3>호카 남성 마하 6 와이드 1147833-DHN</h3>
+          <p class="price"><span class="off">30%</span>129,500원<span class="was">185,000원</span></p>
+          <p class="stars"><b>4.89</b><span>(203)</span></p>
+        </div>
+      </a>
+
+      <a class="tile" href="#">
+        <span class="rank">2<sup>위</sup></span>
+        <div class="shot"><img src="assets/products/mach6-bwht.png" alt="호카 남성 마하 6 와이드 1147833-BWHT"></div>
+        <div class="body">
+          <h3>호카 남성 마하 6 와이드 1147833-BWHT</h3>
+          <p class="price"><span class="off">20%</span>148,000원<span class="was">185,000원</span></p>
+          <p class="stars"><b>4.87</b><span>(483)</span></p>
+        </div>
+      </a>
+
+      <a class="tile" href="#">
+        <span class="rank">5<sup>위</sup></span>
+        <div class="shot"><img src="assets/products/machx3-wbs.png" alt="호카 여성 마하 X 3 와이드 1168872-WBS"></div>
+        <div class="body">
+          <h3>호카 여성 마하 X 3 와이드 1168872-WBS</h3>
+          <p class="price">249,000원</p>
+          <p class="stars"><b>4.85</b><span>(60)</span></p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section aria-label="베스트 6위부터 10위">
+    <div class="rail">
+      <a class="tile" href="#">
+        <span class="rank">7<sup>위</sup></span>
+        <div class="shot"><img src="assets/products/skyward-x.png" alt="호카 남성 스카이워드 X 1147911-CSLP"></div>
+        <div class="body">
+          <h3>호카 남성 스카이워드 X 1147911-CSLP</h3>
+          <p class="price"><span class="off">30%</span>195,300원<span class="was">279,000원</span></p>
+          <p class="stars"><b>4.80</b><span>(167)</span></p>
+        </div>
+      </a>
+      <a class="tile" href="#">
+        <span class="rank">8<sup>위</sup></span>
+        <div class="shot"><img src="assets/products/clifton-one9s.png" alt="호카 공용 클리프톤 ONE9 S 1173333-FSTG"></div>
+        <div class="body">
+          <h3>호카 공용 클리프톤 ONE9 S 1173333-FSTG</h3>
+          <p class="price"><span class="off">20%</span>148,000원<span class="was">185,000원</span></p>
+          <p class="stars"><b>4.64</b><span>(77)</span></p>
+        </div>
+      </a>
+      <a class="tile" href="#">
+        <span class="rank">11<sup>위</sup></span>
+        <div class="shot"><img src="assets/products/arahi8-m.png" alt="호카 남성 아라히 8 와이드 1168710-BBLC"></div>
+        <div class="body">
+          <h3>호카 남성 아라히 8 와이드 1168710-BBLC</h3>
+          <p class="price">199,000원</p>
+          <p class="stars"><b>4.87</b><span>(655)</span></p>
+        </div>
+      </a>
+      <a class="tile" href="#">
+        <span class="rank">12<sup>위</sup></span>
+        <div class="shot"><img src="assets/products/rocketx2.png" alt="호카 공용 로켓 X 2 1127927-YZC"></div>
+        <div class="body">
+          <h3>호카 공용 로켓 X 2 1127927-YZC</h3>
+          <p class="price"><span class="off">40%</span>179,400원<span class="was">299,000원</span></p>
+          <p class="stars"><b>4.81</b><span>(150)</span></p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <a class="campaign" href="#" aria-labelledby="goat-h">
+    <h2 id="goat-h">Trail has only<br>one GOAT.</h2>
+    <p class="ko">트레일에는 단 하나의 GOAT. 스피드고트 6</p>
+    <dl>
+      <div><dt>아웃솔</dt><dd>Vibram® Megagrip</dd></div>
+      <div><dt>러그</dt><dd>5mm</dd></div>
+    </dl>
+    <img src="assets/plates/product-shoe.png" alt="호카 스피드고트 6">
+  </a>
+
+  <section aria-labelledby="team-h">
+    <div class="head">
+      <h2 id="team-h">팀호카의 기록</h2>
+    </div>
+    <div class="results">
+      <ol>
+        <li>
+          <span class="who">고민철</span><span class="clock">16:55:51</span>
+          <span class="race">트랜스제주 by UTMB® 제주 100마일 · Tecton X 2</span>
+          <span class="place">우승</span>
+        </li>
+        <li>
+          <span class="who">김지수</span><span class="clock">05:36:54</span>
+          <span class="race">트랜스제주 by UTMB® 제주 70K · Tecton X 2</span>
+          <span class="place">전체 4위</span>
+        </li>
+        <li>
+          <span class="who">이병도</span><span class="clock">02:29:16</span>
+          <span class="race">2025 JTBC 서울마라톤 풀코스</span>
+          <span class="place">완주</span>
+        </li>
+        <li>
+          <span class="who">박소영</span><span class="clock">03:09:18</span>
+          <span class="race">2025 JTBC 서울마라톤 풀코스</span>
+          <span class="place">완주</span>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <footer>
+    <p class="brand">호카코리아</p>
+    <p>관심고객수 389,247<br>오프라인 스토어 · 호카 롯데월드몰 잠실점</p>
+  </footer>
+
+</main>
+
+<nav class="dock" aria-label="주요 메뉴">
+  <a href="#" aria-current="page">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3.6 10.2 12 3.6l8.4 6.6v9.3H3.6Z"/></svg>
+    홈</a>
+  <a href="#">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    전체상품</a>
+  <a href="#">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M5 19V9.5M12 19V4.6M19 19v-6.4"/></svg>
+    베스트</a>
+  <a href="#">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 20.4 4.3 12.7a4.7 4.7 0 0 1 0-6.6 4.7 4.7 0 0 1 6.6 0l1.1 1.1 1.1-1.1a4.7 4.7 0 0 1 6.6 0 4.7 4.7 0 0 1 0 6.6Z"/></svg>
+    찜</a>
+  <a href="#">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><circle cx="12" cy="8.4" r="3.8"/><path d="M4.8 20.2a7.2 7.2 0 0 1 14.4 0"/></svg>
+    마이</a>
+</nav>
+
+
+<script>
+  // reveal the dock once the hero has left the viewport (no scroll listener)
+  const dock = document.querySelector('.dock');
+  const hero = document.querySelector('.hero-frame');
+  new IntersectionObserver(
+    ([e]) => dock.classList.toggle('is-up', !e.isIntersecting),
+    { rootMargin: '-40% 0px 0px 0px' }
+  ).observe(hero);
+</script>
+</body>
+</html>
