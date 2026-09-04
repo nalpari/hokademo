@@ -39,3 +39,15 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# playwright mcp
+.playwright-mcp/
+
+# agent tooling (skills, hooks, build/review artifacts)
+.agents/
+.claude/
+.codex/
+.impeccable/
+.serena/
+skills-lock.json
+assets/
