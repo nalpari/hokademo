@@ -72,3 +72,23 @@ export const Close = (p: P) => (
     <path d="M6 6l12 12M18 6 6 18" />
   </svg>
 );
+
+export const Check = (p: P) => (
+  <svg {...base} strokeWidth={2.4} {...p}>
+    <path d="m5 12.4 4.6 4.6L19 7" />
+  </svg>
+);
+
+export const Card = (p: P) => (
+  <svg {...base} {...p}>
+    <rect x="3" y="5.4" width="18" height="13.2" rx="2.4" />
+    <path d="M3 10.1h18M6.8 15h3.4" />
+  </svg>
+);
+
+export const Bank = (p: P) => (
+  <svg {...base} {...p}>
+    <path d="M3.6 9.4 12 4.4l8.4 5H3.6Z" />
+    <path d="M6.3 12.2v5.1M12 12.2v5.1M17.7 12.2v5.1M3.8 19.9h16.4" />
+  </svg>
+);

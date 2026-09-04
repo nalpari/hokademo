@@ -5,13 +5,11 @@ import Link from "next/link";
 import Masthead from "@/components/Masthead";
 import { byId, cdn, FREE_OVER, shippingFor, won } from "@/lib/catalog";
 import { useCart } from "@/lib/store";
-import { useState } from "react";
 import { Close } from "@/components/icons";
 import s from "./cart.module.css";
 
 export default function CartPage() {
   const { lines, setQty, remove, clear, ready } = useCart();
-  const [placed, setPlaced] = useState(false);
 
   const rows = lines
     .map((l, index) => ({ line: l, index, p: byId.get(l.id) }))
@@ -132,9 +130,9 @@ export default function CartPage() {
         )}
 
         <div className={s.checkout}>
-          <button className="btn" onClick={() => setPlaced(true)} disabled={placed}>
-            {placed ? "결제는 데모에 연결되어 있지 않습니다" : `${won(goods + ship)} 주문하기`}
-          </button>
+          <Link className="btn" href="/checkout">
+            {won(goods + ship)} 주문하기
+          </Link>
         </div>
       </main>
     </>
