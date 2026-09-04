@@ -70,12 +70,16 @@ export default function HomePage() {
 
       <section className={s.hero} aria-label="캠페인" data-hero>
         <div className={`${s.at} ${s.photo}`}>
-          <Image
-            src="/brand/hero-photo.png"
-            alt="새벽 능선을 달리는 트레일 러너"
-            width={1900}
-            height={2048}
-            priority
+          {/* 첫 프레임과 끝 프레임이 같은 러닝 사이클이라 이어 붙어도 끊기지 않는다. */}
+          <video
+            src="/brand/hero-loop.mp4"
+            poster="/brand/hero-loop.jpg"
+            aria-label="새벽 능선을 달리는 트레일 러너"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
           />
         </div>
 

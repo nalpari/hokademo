@@ -1,0 +1,6 @@
+{
+  "prompt": "[higgsfield wan3_0, 5s, 1080p, aspect auto, start_image = end_image = hero-photo.png so the cycle closes] Cinematic slow-motion: the trail runner continues his stride across the rocky ridge at sunrise, completing exactly one full running cycle that returns to the identical pose and framing. Golden backlight flares between his legs as the sun sits on the horizon, warm rim light on his calves, fine dust and small pebbles kick up from the rock, dry grass sways in the wind, distant mountain haze drifts slowly. Locked-off camera with subtle handheld breathing, shallow depth of field, photoreal 35mm footage, no cuts, seamless loop.",
+  "source": "docs/design/assets/plates/hero-photo.png",
+  "encode": "ffmpeg -vf fps=24,scale=1152:-2:flags=lanczos -c:v libx264 -profile:v high -pix_fmt yuv420p -crf 31 -preset slow -movflags +faststart",
+  "poster": "hero-loop.jpg (frame 0)"
+}
