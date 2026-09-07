@@ -139,6 +139,45 @@ components:
      This document discharges the FINISH line of
      `.impeccable/surfaces/docs-design-hoka-mobile-home-html.md`. -->
 
+## Scope
+
+This file is the design contract for the HOKA Korea storefront. It governs the
+nine App Router surfaces in `src/app/` (home, catalog, product detail, search,
+cart, wishlist, checkout, checkout success, checkout fail), the shared components
+in `src/components/`, and the approved comp record at
+`docs/design/hoka-mobile-home.html`. It covers both breakpoints: the mobile
+composition below 1024px and the desktop extension at and above it.
+
+It does not govern catalog content or copy (`src/data/`, `PRODUCT.md`), product
+photography and cut-out production, or the Toss Payments window — that renders in
+Toss's own system and is outside our control.
+
+**Reading it without the repo.** The frontmatter carries every token by value, so
+an agent can make an on-brand decision from this file alone, with no stylesheet
+and no source access. Inside the repo the same tokens live as CSS custom
+properties in `src/app/globals.css`; that file is the runtime, this one is the
+reasoning. When they disagree, the shipped CSS wins and this file is stale —
+say so rather than styling around it.
+
+## Reader and task
+
+**Who reads the page.** A Korean runner on a phone, one-handed, often before a
+run — early, dark room, low screen brightness. They arrive from a campaign link
+or a search already half-decided between two or three shoes.
+
+**What they came to do.** Compare, check that their size is in stock, and buy.
+Every scan is a comparison: sale price against list price, rating against review
+count, this week's board position against the shoe they were going to buy anyway.
+The Korean commerce price block answers all of that in one glance, which is why
+it is load-bearing rather than decorative density.
+
+**What that obliges of a composition.** The campaign gets the first viewport and
+nothing else. Evidence — the price cluster, the rank numeral, the size grid,
+delivery values — sets at full available width and never gets narrowed to a
+prose measure. The primary action stays in thumb reach above the dock. A shopper
+who cannot tell whether a size is sold out, or what they are actually paying,
+has been failed by the page no matter how it looks.
+
 ## Overview
 
 **Creative North Star: "The Night Ridge"**
@@ -352,6 +391,42 @@ One orchestrated arrival exists in the whole system, on the home hero, entirely 
 - **Don't** hide content behind an entrance animation, and don't add a second orchestrated arrival to a surface.
 - **Don't** let the dock cover the home's first viewport, and don't drive its arrival with a scroll listener — both artifacts observe the hero with an `IntersectionObserver`.
 - **Don't** thin out the Korean commerce price/rating block to make a tile look cleaner.
+
+## Generated-design patterns we never ship
+
+Defaults that appear when a page is generated rather than designed. These are
+not covered by the Don'ts above, because they are not mistakes about *this*
+system — they are the house style of every other one. Each is a review-stopper.
+
+- **Tailwind utility classes.** Tailwind is in `devDependencies` but is never
+  imported by `src/app/globals.css`, so no utility class resolves at runtime. A
+  `className="flex gap-4 rounded-lg bg-gray-800"` renders unstyled. Markup uses
+  the semantic class names already in `globals.css`.
+- **The default palette.** `gray-900`, `slate-800`, `#1a1a1a`, `#fff`. This
+  ground is `#16191c` and is cool and blue on purpose; a neutral charcoal makes
+  the shoes read as thumbnails. Colors come from the tokens, by name.
+- **The violet-to-indigo gradient.** On headings, buttons, or a hero overlay.
+  The only gradients here are the editorial tile's radial `card-hi` → `card` and
+  the hero photograph's dissolve into the ground.
+- **The centered marketing column.** ~720px of centered text, an oversized
+  headline, three icon-heading-paragraph feature cards, generous whitespace.
+  This is a store. Desktop runs four product columns; only empty states and the
+  payment receipt cap at 640px.
+- **The uniform radius.** One `rounded-lg` on everything. Radius encodes role
+  here: `{rounded.thumb}` / `{rounded.field}` / `{rounded.surface}` /
+  `{rounded.surface-lg}` by surface, `{rounded.pill}` for anything actionable.
+- **Emoji as iconography.** 🔥 ⭐ 🛒 in place of the 24×24 `currentColor` stroke
+  family. Emoji do not take a token color and do not match at 1.7 stroke width.
+- **Glass on everything.** `backdrop-filter` is two elements in this build: the
+  dock and the wish button. Everywhere else, translucency is a defect.
+- **Placeholder content.** Invented product names, `$99.00`, lorem, stock
+  imagery. Every product on a surface is a real row from `src/data/`, priced in
+  won, with its real rating and review count.
+- **Hover as the primary state.** The mobile composition is touch-first: press
+  scale and `:focus-visible` are the states that matter, and they must survive
+  any desktop hover styling added on top.
+- **Prose-width evidence.** A price cluster, size grid, or spec table narrowed to
+  match a paragraph's measure. Evidence takes the full width available to it.
 
 ## Desktop extension (2026-09-07)
 
