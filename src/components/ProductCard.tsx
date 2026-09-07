@@ -35,7 +35,7 @@ export default function ProductCard({
             alt={p.name}
             width={500}
             height={500}
-            sizes="(max-width: 520px) 50vw, 260px"
+            sizes="(min-width: 1440px) 303px, (min-width: 1024px) 23vw, (max-width: 520px) 50vw, 260px"
             priority={priority}
           />
           {!available && <span className="soldout">품절</span>}

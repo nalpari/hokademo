@@ -66,7 +66,7 @@ export default function CartPage() {
                   alt=""
                   width={300}
                   height={300}
-                  sizes="88px"
+                  sizes="(min-width: 1024px) 140px, 88px"
                 />
               </Link>
 

@@ -35,7 +35,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
               width={750}
               height={974}
               priority={i === 0}
-              sizes="(max-width: 520px) 84vw, 420px"
+              sizes="(min-width: 1440px) 674px, (min-width: 1024px) 47vw, (max-width: 520px) 84vw, 420px"
             />
           ))}
         </div>

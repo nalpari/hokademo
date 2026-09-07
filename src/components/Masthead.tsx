@@ -22,10 +22,13 @@ export default function Masthead({ tab, title, back }: Props) {
       <div className="masthead-bar">
         {title ? (
           <>
-            <Link href={back ?? "/"} className="tap" aria-label="뒤로">
+            <Link href={back ?? "/"} className="tap mobile-back" aria-label="뒤로">
               <Back />
             </Link>
             <strong className="masthead-title">{title}</strong>
+            <Link href="/" className="desktop-logo" aria-label="호카코리아 홈">
+              <Image className="wordmark" src="/brand/wordmark.png" alt="HOKA" width={1500} height={411} />
+            </Link>
           </>
         ) : (
           <Link href="/" aria-label="호카코리아 홈">
@@ -39,6 +42,14 @@ export default function Masthead({ tab, title, back }: Props) {
             />
           </Link>
         )}
+
+        <nav className="desktop-nav" aria-label="데스크톱 카테고리">
+          {TABS.map((t) => (
+            <Link key={t.id} href={`/products?tab=${t.id}`} aria-current={t.id === tab ? "page" : undefined}>
+              {t.label}
+            </Link>
+          ))}
+        </nav>
 
         <div className="utils">
           <Link href="/search" className="tap" aria-label="검색">
@@ -66,6 +77,12 @@ export default function Masthead({ tab, title, back }: Props) {
             </Link>
           ))}
         </nav>
+      )}
+      {title && (
+        <div className="desktop-context">
+          <Link href={back ?? "/"} className="tap" aria-label="뒤로"><Back /></Link>
+          <strong>{title}</strong>
+        </div>
       )}
     </header>
   );
