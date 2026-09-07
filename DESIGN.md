@@ -352,3 +352,36 @@ One orchestrated arrival exists in the whole system, on the home hero, entirely 
 - **Don't** hide content behind an entrance animation, and don't add a second orchestrated arrival to a surface.
 - **Don't** let the dock cover the home's first viewport, and don't drive its arrival with a scroll listener — both artifacts observe the hero with an `IntersectionObserver`.
 - **Don't** thin out the Korean commerce price/rating block to make a tile look cleaner.
+
+## Desktop extension (2026-09-07)
+
+The existing mobile composition remains the contract below 1024px. Desktop starts
+at 1024px, with a 1440px maximum content width, centered gutters of 48–80px,
+24px grid gaps and 72px section spacing. Existing color, typeface, radius and
+interaction tokens remain unchanged. Desktop headings use 36px; campaign display
+uses 72–112px. No new catalog content or generated product imagery is introduced.
+
+- Navigation: one 88px header with the existing categories and utility actions.
+  Inner pages retain their back link and title beneath the global navigation.
+  The mobile dock is replaced by these header links on desktop.
+- Home: existing campaign footage occupies the right of a landscape hero; copy
+  sits on the dark left. Three campaign products form a row below it. Bestsellers
+  use three equal lead tiles, then five smaller tiles. Campaign specs sit left of
+  the existing shoe cutout. Team results use two columns.
+- Catalog, search results and wishlist: four equal product columns; text and prices
+  retain the existing Korean commerce information density. Search input is capped
+  at 720px. Empty states and payment receipts stay at a readable 640px maximum.
+- Product detail: gallery left, product information and purchase controls right.
+  Cart and checkout put products/options left and totals/actions right. Source
+  order and all mobile controls are preserved.
+- Accessibility: preserve focus rings, native keyboard controls, semantic reading
+  order, disabled-state explanations and reduced-motion poster. Desktop navigation
+  must provide every destination previously available from the mobile dock.
+- References: Relume MCP `product-header6` supplied the image-left/purchase-right
+  layout reference; its packages and placeholder content are not needed here.
+  Higgsfield MCP model recommendations were inspected for widescreen adaptation;
+  reuse the existing footage with CSS framing to preserve campaign content.
+  Requested `design-taste` and `impeccable` skills were unavailable in installed
+  skill paths; the existing design system is the visual source of truth.
+- Validation: compare mobile geometry before/after and inspect desktop at 1024,
+  1280 and 1440px, including navigation, filters, sizing, cart and checkout states.

@@ -102,3 +102,10 @@
   color: var(--ink-dim);
   letter-spacing: -0.03em;
 }
+
+@media (min-width: 1024px) {
+  .field, .suggest { max-width: 720px; margin-inline: auto; }
+  .field { height: 60px; padding-inline: 20px; }
+  .suggest { padding-inline: 0; }
+  .count { padding-block: 32px 24px; }
+}

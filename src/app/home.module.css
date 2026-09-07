@@ -472,3 +472,46 @@
     animation-delay: 0.48s;
   }
 }
+
+@media (min-width: 1024px) {
+  .hero {
+    --u: 0.45px;
+    --hero-gutter: max(var(--gutter), calc((100vw - var(--desktop-width)) / 2 + var(--gutter)));
+    height: 780px;
+    padding: 0;
+  }
+  .photo { left: 38%; width: 62%; height: 600px; }
+  .photo video { inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 42%; }
+  .photo::after { background: linear-gradient(90deg, var(--ground), transparent 40%), linear-gradient(0deg, var(--ground), transparent 35%); }
+  .headline { left: var(--hero-gutter); top: 110px; width: 65%; font-size: clamp(72px, 7.8vw, 112px); line-height: 1; }
+  .subline { left: var(--hero-gutter); top: 360px; font-size: 26px; }
+  .cta { position: absolute; left: var(--hero-gutter); top: 420px; width: 180px; height: 54px; border-radius: 16px; font-size: 18px; }
+  .rankRail { top: 600px; padding: 0 var(--hero-gutter); gap: var(--desktop-gap); overflow: visible; }
+  .rankCard { flex: 1; min-width: 0; height: 150px; border-radius: var(--radius); box-shadow: none; }
+  .rankShoe { left: 12px; top: 35px; width: 42%; height: 90px; }
+  .rankName { left: 48%; top: 42px; width: 48%; font-size: 15px; line-height: 1.4; white-space: normal; }
+  .rankPrice { left: 48%; top: auto; bottom: 24px; width: 48%; font-size: 15px; line-height: 1.4; }
+  .rankPrice s { display: block; margin: 0; font-size: 12px; }
+  .podium { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--desktop-gap); }
+  .lead { grid-column: auto; }
+  .lead .shot { aspect-ratio: 1; }
+  .lead .shot img { width: 86%; }
+  .rank { left: 20px; top: 20px; font-size: 36px; }
+  .body { padding: 20px; }
+  .rail { gap: var(--desktop-gap); }
+  .rail .tile { flex: 1; min-width: 0; }
+  .rail .body { padding: 16px; }
+  .rail .rank { font-size: 26px; left: 14px; top: 14px; }
+  .campaign { position: relative; display: block; margin: 72px var(--gutter) 0; padding: 56px; min-height: 400px; border-radius: var(--radius-lg); }
+  .campaign h2 { font-size: 72px; }
+  .campaign .ko { max-width: 45%; font-size: 18px; }
+  .campaign dl { max-width: 38%; margin-top: 28px; }
+  .campaign img { position: absolute; width: 56%; right: -2%; top: 24%; margin: 0; }
+  .results ol { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 48px; }
+  .results li { padding-block: 24px; }
+  .results li:nth-child(2) { border-top: 0; }
+}
+
+@media (min-width: 1024px) and (prefers-reduced-motion: reduce) {
+  .photo { background-size: cover; background-position: center 42%; }
+}

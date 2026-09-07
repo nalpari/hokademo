@@ -229,3 +229,17 @@
 .info dd {
   color: var(--ink);
 }
+
+@media (min-width: 1024px) {
+  .page { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); grid-template-rows: auto auto auto 1fr; gap: 0 48px; padding-inline: var(--gutter); }
+  .gallery { grid-column: 1; grid-row: 1 / 5; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-content: start; gap: 16px; padding: 0; overflow: visible; }
+  .gallery img { width: 100%; max-width: none; }
+  .gallery img:first-child { grid-column: 1 / -1; }
+  .summary, .desc, .buy, .info { grid-column: 2; }
+  .summary { padding: 0; }
+  .summary h1 { font-size: 30px; }
+  .desc { margin: 24px 0 0; }
+  .buy { padding: 0; margin-top: 28px; }
+  .info { margin: 28px 0 0; align-self: start; }
+  .actions { position: static; }
+}
