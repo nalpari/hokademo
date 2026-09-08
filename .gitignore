@@ -48,6 +48,5 @@ next-env.d.ts
 .claude/
 .codex/
 .impeccable/
-.serena/
 skills-lock.json
 assets/
